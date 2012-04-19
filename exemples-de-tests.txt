@@ -1,0 +1,95 @@
+@Test
+public void should_be_valid_carte_vitale_for_man() {
+    assertIsValid("182099304603606");
+}
+
+@Test
+public void should_be_valid_carte_vitale_for_woman() {
+    assertIsValid("282099304603606");
+}
+
+@Test
+public void should_be_valid_carte_vitale_for_transgenre() {
+    assertIsValid("382099304603606");
+}
+
+@Test
+public void cant_start_with_other_than_1_or_2_or_3() {
+    assertIsInvalid("482099304603606");
+}
+
+@Test
+public void should_be_valid_for_corse() {
+    assertIsValid("182092A04603606");
+    assertIsValid("182092B04603606");
+}
+
+@Test
+public void should_be_invalid_for_char_as_department_of_birth() {
+    assertIsInvalid("182093A04603606");
+    assertIsInvalid("182092C04603606");
+}
+
+@Test
+public void cant_have_length_lesser_than_15_digits() {
+    assertIsInvalid("1");
+    assertIsInvalid("11");
+    assertIsInvalid("111");
+    assertIsInvalid("1111");
+    assertIsInvalid("11111");
+    assertIsInvalid("111111");
+    assertIsInvalid("1111111");
+    assertIsInvalid("11111111");
+    assertIsInvalid("111111111");
+    assertIsInvalid("1111111111");
+    assertIsInvalid("11111111111");
+    assertIsInvalid("111111111111");
+    assertIsInvalid("1111111111111");
+    assertIsInvalid("11111111111111");
+    assertIsValid("182099304603606");
+}
+
+@Test
+public void should_have_valid_year_of_birth() {
+    assertIsValid("100139304603606");
+    assertIsInvalid("1AA139304603606");
+}
+
+@Test
+public void should_have_valid_month_of_birth() {
+    assertIsInvalid("182009304603606");
+    assertIsValid("182139304603606");
+}
+
+@Test
+public void should_have_valid_department_of_birth() {
+    assertIsInvalid("182090004603606");
+    assertIsInvalid("182099904603606");
+}
+
+@Test
+public void should_have_valid_numero_commune() {
+    assertIsInvalid("182099300003606");
+    assertIsInvalid("182099999103606");
+}
+
+@Test
+public void should_have_valid_cle() {
+    assertIsInvalid("182099304603600");
+    assertIsInvalid("182099304603698");
+}
+
+@Test
+public void should_have_valid_ordre_acte_naissance() {
+    assertIsInvalid("182099304600001");
+}
+
+private void assertIsValid(String numeroSecuriteSocial) {
+    Date dateEmission = null;
+    assertTrue(new CarteVitale(numeroSecuriteSocial, "J", "S", dateEmission).isValid());
+}
+
+private void assertIsInvalid(String numeroSecuriteSocial) {
+    Date dateEmission = null;
+    assertFalse(new CarteVitale(numeroSecuriteSocial, "J", "S", dateEmission).isValid());
+}
